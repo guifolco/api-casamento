@@ -5,65 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casamento Isabella & Márcio</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
     <style>
-        /* Reset básico */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Fundo escuro com degradê elegante */
+        :root {
+            /* Fundo: Tons muito escuros para dar profundidade e elegância */
+            --fundo-marsala-escuro: #3A1716; 
+            --fundo-verde-escuro: #12241C;
+
+            /* Elementos em destaque: Cores vibrantes */
+            --marsala-principal: #8D4E4B;    
+            --marsala-claro: #A86A67;        
+            --verde-luminoso: #5BC093; /* Verde mais claro para dar leitura no fundo escuro */
+            --verde-bg: rgba(91, 192, 147, 0.15);
+            
+            --texto-claro: #FDFBFB;
+            --texto-secundario: #BDBDBD;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #121212 0%, #2c3e50 100%);
+            /* O degradê imersivo com as cores da festa */
+            background: linear-gradient(135deg, var(--fundo-marsala-escuro) 0%, var(--fundo-verde-escuro) 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #ffffff;
+            color: var(--texto-claro);
             padding: 20px;
         }
 
-        /* Cartão central com efeito de vidro fosco (Glassmorphism) */
+        /* Cartão de vidro esfumaçado */
         .container {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03); 
+            backdrop-filter: blur(25px); 
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             padding: 50px 30px;
             border-radius: 30px;
             text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6);
             max-width: 380px;
             width: 100%;
         }
 
-        /* Título com toque dourado */
         h1 {
             font-weight: 700;
-            font-size: 26px;
+            font-size: 28px;
             margin-bottom: 15px;
-            letter-spacing: 1px;
-            background: linear-gradient(to right, #fff, #d4af37);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.5px;
+            color: var(--texto-claro);
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
         p.descricao {
-            color: #a0a0a0;
+            color: var(--texto-secundario);
             font-size: 15px;
-            margin-bottom: 45px;
+            margin-bottom: 40px;
             line-height: 1.6;
+            font-weight: 400;
         }
 
-        /* Botão Dourado com animação de pulso */
-        .btn-dourado {
-            background: linear-gradient(45deg, #d4af37, #f1c40f);
-            color: #121212;
+        /* Botão Marsala que "salta" na tela */
+        .btn-marsala {
+            background: linear-gradient(45deg, var(--marsala-principal), var(--marsala-claro));
+            color: white; 
             padding: 20px 24px;
             border-radius: 50px;
             font-size: 18px;
@@ -74,52 +88,76 @@
             justify-content: center;
             gap: 12px;
             width: 100%;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 8px 25px rgba(141, 78, 75, 0.5);
             transition: all 0.2s ease;
-            animation: pulse-gold 2s infinite;
+            animation: pulse-marsala 2.5s infinite;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* Efeito de afundar ao clicar */
-        .btn-dourado:active {
+        .btn-marsala:active {
             transform: scale(0.96);
-            box-shadow: 0 2px 5px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 4px 10px rgba(141, 78, 75, 0.3);
+        }
+
+        /* Contador Verde Luminoso */
+        .contador-fotos {
+            margin-top: 35px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--verde-luminoso); 
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--verde-bg); 
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 1px solid rgba(91, 192, 147, 0.25);
+        }
+
+        .contador-fotos .material-icons-round {
+            font-size: 18px;
         }
 
         .material-icons-round {
             font-size: 24px;
         }
 
-        /* Animação que faz o botão pulsar */
-        @keyframes pulse-gold {
-            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
-            70% { box-shadow: 0 0 0 20px rgba(212, 175, 55, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        @keyframes pulse-marsala {
+            0% { box-shadow: 0 0 0 0 rgba(141, 78, 75, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(141, 78, 75, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(141, 78, 75, 0); }
         }
 
-        /* Status das mensagens */
         #status-mensagem {
-            margin-top: 30px;
-            font-size: 15px;
+            margin-top: 25px;
+            font-size: 14px;
             font-weight: 600;
-            min-height: 20px;
+            min-height: 25px;
         }
-        .sucesso { color: #d4af37; }
-        .erro { color: #ff4757; }
-        .carregando { color: #a0a0a0; }
+        
+        .sucesso { color: var(--verde-luminoso); }
+        .erro { color: #FF6B6B; } 
+        .carregando { color: var(--texto-secundario); }
     </style>
 </head>
 <body>
 
     <div class="container">
         <h1>Isabella & Márcio</h1>
-        <p class="descricao">Compartilhe seus melhores momentos conosco! Sua foto vai direto para o nosso álbum digital.</p>
+        <p class="descricao">Compartilhe seus melhores momentos! Sua foto vai direto para o nosso telão.</p>
 
         <input type="file" id="fotoInput" accept="image/*" hidden style="display: none !important; visibility: hidden;">
         
-        <label for="fotoInput" class="btn-dourado" id="labelBotao">
+        <label for="fotoInput" class="btn-marsala" id="labelBotao">
             <span class="material-icons-round">photo_camera</span>
             Tirar Foto
         </label>
+
+        <div class="contador-fotos">
+            <span class="material-icons-round">photo_library</span>
+            <span id="total-fotos">--</span> fotos capturadas
+        </div>
 
         <p id="status-mensagem"></p>
     </div>
@@ -130,14 +168,27 @@
         const labelBotao = document.getElementById('labelBotao');
         const textoOriginalBotao = labelBotao.innerHTML;
 
+        async function atualizarContador() {
+            try {
+                const response = await fetch('/api/fotos/total');
+                if (response.ok) {
+                    const total = await response.text();
+                    document.getElementById('total-fotos').textContent = total;
+                }
+            } catch (error) {
+                console.error('Erro ao buscar total de fotos:', error);
+            }
+        }
+
+        atualizarContador();
+
         fotoInput.addEventListener('change', async function() {
             const arquivo = this.files[0];
             if (!arquivo) return;
 
-            // Feedback visual: botão carregando
             labelBotao.innerHTML = '<span class="material-icons-round">hourglass_top</span> Enviando...';
-            labelBotao.style.opacity = "0.7";
-            labelBotao.style.animation = "none"; // Para de pulsar enquanto envia
+            labelBotao.style.opacity = "0.8";
+            labelBotao.style.animation = "none";
             statusMensagem.textContent = "Preparando sua foto...";
             statusMensagem.className = "carregando";
 
@@ -145,17 +196,18 @@
             formData.append('arquivo', arquivo);
 
             try {
-                // A URL relativa mágica (funciona local e na nuvem)
                 const response = await fetch('/api/fotos/upload', { 
                     method: 'POST',
                     body: formData
                 });
 
                 if (response.ok) {
-                    const urlDaFoto = await response.text();
-                    statusMensagem.textContent = "✨ Sucesso! Sua foto já está no telão.";
+                    await response.text();
+                    statusMensagem.innerHTML = '<span class="material-icons-round" style="vertical-align: middle; font-size: 18px;">check_circle</span> Sucesso! Foto enviada.';
                     statusMensagem.className = "sucesso";
                     console.log("Foto salva com sucesso!");
+                    
+                    atualizarContador();
                 } else {
                     throw new Error('Erro no servidor');
                 }
@@ -164,11 +216,10 @@
                 statusMensagem.textContent = "❌ Ops! Algo deu errado. Tente de novo.";
                 statusMensagem.className = "erro";
             } finally {
-                // Volta o botão ao normal
                 labelBotao.innerHTML = textoOriginalBotao;
                 labelBotao.style.opacity = "1";
-                labelBotao.style.animation = "pulse-gold 2s infinite";
-                fotoInput.value = ''; // Limpa o arquivo para permitir novo envio
+                labelBotao.style.animation = "pulse-marsala 2.5s infinite"; 
+                fotoInput.value = '';
             }
         });
     </script>

@@ -38,4 +38,5 @@ public class FotoController {
                                  .body("Ops! Erro ao salvar a foto: " + e.getMessage());
         }
     }
+    
 }
