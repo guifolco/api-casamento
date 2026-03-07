@@ -13,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 @CrossOrigin(origins = "*") 
 public class FotoController {
 
-    // Injetando o Service para o Controller poder usá-lo
     @Autowired
     private FotoService fotoService;
 
@@ -21,24 +20,20 @@ public class FotoController {
     public ResponseEntity<String> receberFoto(@RequestParam("arquivo") MultipartFile arquivo) {
 
         System.out.println("🚨 [ALERTA] ALGUÉM CLICOU NO BOTÃO E A FOTO CHEGOU NO CONTROLLER!");
-        
-        // 1. Verificação de segurança: O arquivo veio vazio?
+
         if (arquivo.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nenhuma foto foi enviada.");
         }
 
         try {
-            // 2. Passa a "batata quente" pro Service fazer o trabalho pesado
             Foto fotoSalva = fotoService.processarESalvarFoto(arquivo);
 
-            // 3. Devolve uma resposta de sucesso para a tela do celular do convidado
             return ResponseEntity.ok("Sucesso! Foto salva. ID no banco: " + fotoSalva.getId());
 
         } catch (Exception e) {
 
             System.out.println("❌ [ERRO GRAVE] O JAVA TENTOU PROCESSAR E EXPLODIU:");
             e.printStackTrace();
-            // 4. Se der qualquer erro (ex: falha na nuvem ou no banco), avisa o usuário e não quebra o app
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                                  .body("Ops! Erro ao salvar a foto: " + e.getMessage());
         }

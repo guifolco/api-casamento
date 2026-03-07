@@ -17,14 +17,12 @@ public class FirebaseConfig {
     public void inicializarFirebase() {
         try {
             InputStream serviceAccount;
-            
-            // 1. Tenta pegar a chave da Variável de Ambiente (quando estiver no Render)
+
             String firebaseEnv = System.getenv("FIREBASE_JSON");
             
             if (firebaseEnv != null && !firebaseEnv.isEmpty()) {
                 serviceAccount = new ByteArrayInputStream(firebaseEnv.getBytes(StandardCharsets.UTF_8));
             } else {
-                // 2. Se não achar, pega do arquivo local (quando estiver no seu PC)
                 serviceAccount = getClass().getClassLoader().getResourceAsStream("firebase-key.json");
             }
 
