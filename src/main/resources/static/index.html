@@ -3,133 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fotos do Casamento</title>
+    <title>Casamento Isabella & Márcio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
     <style>
+        /* Reset básico */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+        /* Fundo escuro com degradê elegante */
         body {
-            background-color: #f4fdf4; 
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #121212 0%, #2c3e50 100%);
             min-height: 100vh;
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
             padding: 20px;
         }
 
-        
+        /* Cartão central com efeito de vidro fosco (Glassmorphism) */
         .container {
-            background-color: #ffffff;
-            padding: 40px 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            max-width: 400px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 50px 30px;
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            max-width: 380px;
             width: 100%;
         }
 
+        /* Título com toque dourado */
         h1 {
-            color: #2c5e3b;
-            margin-bottom: 10px;
+            font-weight: 700;
+            font-size: 26px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            background: linear-gradient(to right, #fff, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.descricao {
+            color: #a0a0a0;
+            font-size: 15px;
+            margin-bottom: 45px;
+            line-height: 1.6;
+        }
+
+        /* Botão Dourado com animação de pulso */
+        .btn-dourado {
+            background: linear-gradient(45deg, #d4af37, #f1c40f);
+            color: #121212;
+            padding: 20px 24px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            transition: all 0.2s ease;
+            animation: pulse-gold 2s infinite;
+        }
+
+        /* Efeito de afundar ao clicar */
+        .btn-dourado:active {
+            transform: scale(0.96);
+            box-shadow: 0 2px 5px rgba(212, 175, 55, 0.2);
+        }
+
+        .material-icons-round {
             font-size: 24px;
         }
 
-        p {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 16px;
-            line-height: 1.5;
+        /* Animação que faz o botão pulsar */
+        @keyframes pulse-gold {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
         }
 
-        */
-        input[type="file"] {
-            display: none !important;
-        }
-
-        .btn-upload {
-            display: inline-block;
-            background-color: #2c5e3b;
-            color: white;
-            padding: 15px 30px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            box-shadow: 0 4px 6px rgba(44, 94, 59, 0.3);
-        }
-
-        .btn-upload:active, .btn-upload:hover {
-            background-color: #1a3b24;
-            transform: scale(0.98);
-        }
+        /* Status das mensagens */
         #status-mensagem {
-            margin-top: 20px;
-            font-size: 14px;
-            font-weight: bold;
-            color: #2c5e3b;
+            margin-top: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            min-height: 20px;
         }
+        .sucesso { color: #d4af37; }
+        .erro { color: #ff4757; }
+        .carregando { color: #a0a0a0; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Casamento da Isabella & Márcio (V2)</h1>
-        <p>Capture nossos melhores momentos! Escaneie, tire uma foto e ela vai direto para o nosso telão.</p>
+        <h1>Isabella & Márcio</h1>
+        <p class="descricao">Compartilhe seus melhores momentos conosco! Sua foto vai direto para o nosso álbum digital.</p>
 
         <input type="file" id="fotoInput" accept="image/*" hidden style="display: none !important; visibility: hidden;">
         
-        <label for="fotoInput" class="btn-upload">
-            📸 Enviar uma Foto
+        <label for="fotoInput" class="btn-dourado" id="labelBotao">
+            <span class="material-icons-round">photo_camera</span>
+            Tirar Foto
         </label>
 
-        <div id="status-mensagem"></div>
+        <p id="status-mensagem"></p>
     </div>
 
     <script>
         const fotoInput = document.getElementById('fotoInput');
         const statusMensagem = document.getElementById('status-mensagem');
+        const labelBotao = document.getElementById('labelBotao');
+        const textoOriginalBotao = labelBotao.innerHTML;
 
-        fotoInput.addEventListener('change', async function(event) {
-            
-            const arquivo = event.target.files[0];
-
+        fotoInput.addEventListener('change', async function() {
+            const arquivo = this.files[0];
             if (!arquivo) return;
 
-            statusMensagem.innerText = "⏳ Enviando foto para o telão... Aguarde!";
-            statusMensagem.style.color = "#d97706";
+            // Feedback visual: botão carregando
+            labelBotao.innerHTML = '<span class="material-icons-round">hourglass_top</span> Enviando...';
+            labelBotao.style.opacity = "0.7";
+            labelBotao.style.animation = "none"; // Para de pulsar enquanto envia
+            statusMensagem.textContent = "Preparando sua foto...";
+            statusMensagem.className = "carregando";
 
             const formData = new FormData();
-            formData.append("arquivo", arquivo);
+            formData.append('arquivo', arquivo);
 
             try {
-                const response = await fetch("/api/fotos/upload", {
-                    method: "POST",
+                // A URL relativa mágica (funciona local e na nuvem)
+                const response = await fetch('/api/fotos/upload', { 
+                    method: 'POST',
                     body: formData
                 });
 
                 if (response.ok) {
-                    statusMensagem.innerText = "✅ Foto enviada com sucesso! Tire outra!";
-                    statusMensagem.style.color = "#2c5e3b"; // Verde
+                    const urlDaFoto = await response.text();
+                    statusMensagem.textContent = "✨ Sucesso! Sua foto já está no telão.";
+                    statusMensagem.className = "sucesso";
+                    console.log("Foto salva com sucesso!");
                 } else {
-                    statusMensagem.innerText = "❌ Ops! Algo deu errado. Tente de novo.";
-                    statusMensagem.style.color = "#dc2626"; // Vermelho
+                    throw new Error('Erro no servidor');
                 }
-
             } catch (error) {
-                statusMensagem.innerText = "❌ Erro de conexão. Tente novamente mais tarde.";
-                statusMensagem.style.color = "#dc2626";
-                console.error("Erro detalhado:", error);
+                console.error('Erro:', error);
+                statusMensagem.textContent = "❌ Ops! Algo deu errado. Tente de novo.";
+                statusMensagem.className = "erro";
+            } finally {
+                // Volta o botão ao normal
+                labelBotao.innerHTML = textoOriginalBotao;
+                labelBotao.style.opacity = "1";
+                labelBotao.style.animation = "pulse-gold 2s infinite";
+                fotoInput.value = ''; // Limpa o arquivo para permitir novo envio
             }
-
-            fotoInput.value = "";
         });
     </script>
 
