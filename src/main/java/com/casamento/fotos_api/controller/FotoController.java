@@ -38,5 +38,12 @@ public class FotoController {
                                  .body("Ops! Erro ao salvar a foto: " + e.getMessage());
         }
     }
+
+    @GetMapping("/total")
+    public ResponseEntity<Long> getTotalFotos() {
+        // O .count() vai no banco e conta as linhas!
+        long total = fotoService.contarFotos(); // ou fotoRepository.count() dependendo de como está seu código
+        return ResponseEntity.ok(total);
+    }
     
 }

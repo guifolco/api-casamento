@@ -3,7 +3,9 @@ package com.casamento.fotos_api.service;
 import com.casamento.fotos_api.model.Foto;
 import com.casamento.fotos_api.repository.FotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.multipart.MultipartFile;
 import com.google.cloud.storage.Bucket;
 import com.google.firebase.cloud.StorageClient;
@@ -46,5 +48,15 @@ public class FotoService {
         } catch (Exception e) {
             throw new RuntimeException("Erro ao fazer upload para o Firebase: " + e.getMessage());
         }
+    }
+
+    @GetMapping("/total")
+    public ResponseEntity<Long> getTotalFotos() {
+        long total = fotoRepository.count(); 
+        return ResponseEntity.ok(total);
+    }
+
+    public long contarFotos() {
+        return fotoRepository.count();
     }
 }
