@@ -19,6 +19,8 @@ public class FotoController {
 
     @PostMapping("/upload")
     public ResponseEntity<String> receberFoto(@RequestParam("arquivo") MultipartFile arquivo) {
+
+        System.out.println("🚨 [ALERTA] ALGUÉM CLICOU NO BOTÃO E A FOTO CHEGOU NO CONTROLLER!");
         
         // 1. Verificação de segurança: O arquivo veio vazio?
         if (arquivo.isEmpty()) {
@@ -33,6 +35,9 @@ public class FotoController {
             return ResponseEntity.ok("Sucesso! Foto salva. ID no banco: " + fotoSalva.getId());
 
         } catch (Exception e) {
+
+            System.out.println("❌ [ERRO GRAVE] O JAVA TENTOU PROCESSAR E EXPLODIU:");
+            e.printStackTrace();
             // 4. Se der qualquer erro (ex: falha na nuvem ou no banco), avisa o usuário e não quebra o app
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                                  .body("Ops! Erro ao salvar a foto: " + e.getMessage());

@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignorar chave do Firebase
+src/main/resources/firebase-key.json
