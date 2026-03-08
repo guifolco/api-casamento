@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/fotos")
@@ -41,9 +42,16 @@ public class FotoController {
 
     @GetMapping("/total")
     public ResponseEntity<Long> getTotalFotos() {
-        // O .count() vai no banco e conta as linhas!
-        long total = fotoService.contarFotos(); // ou fotoRepository.count() dependendo de como está seu código
+        long total = fotoService.contarFotos();
         return ResponseEntity.ok(total);
     }
+
+    @GetMapping("/lista")
+    public ResponseEntity<List<Foto>> listarTodasAsFotos() {
+        List<Foto> fotos = fotoService.buscarTodasFotos(); 
+        return ResponseEntity.ok(fotos);
+    }
+
+    
     
 }

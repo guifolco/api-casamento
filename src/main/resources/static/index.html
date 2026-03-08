@@ -119,6 +119,31 @@
             font-size: 18px;
         }
 
+        /* Botão Secundário para a Galeria */
+        .btn-secundario {
+            background: transparent;
+            color: var(--texto-claro);
+            padding: 15px 24px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            border: 2px solid var(--marsala-principal);
+            margin-top: 20px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secundario:active {
+            background: rgba(141, 78, 75, 0.15);
+            transform: scale(0.97);
+        }
+
         .material-icons-round {
             font-size: 24px;
         }
@@ -158,6 +183,11 @@
             <span class="material-icons-round">photo_library</span>
             <span id="total-fotos">--</span> fotos capturadas
         </div>
+
+        <a href="galeria.html" class="btn-secundario">
+            <span class="material-icons-round">grid_view</span>
+            Ver Galeria
+        </a>
 
         <p id="status-mensagem"></p>
     </div>

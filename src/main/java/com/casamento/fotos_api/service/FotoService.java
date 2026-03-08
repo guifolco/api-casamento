@@ -11,6 +11,7 @@ import com.google.cloud.storage.Bucket;
 import com.google.firebase.cloud.StorageClient;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -58,5 +59,9 @@ public class FotoService {
 
     public long contarFotos() {
         return fotoRepository.count();
+    }
+
+    public List<Foto> buscarTodasFotos() {
+        return fotoRepository.findAll();
     }
 }

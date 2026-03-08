@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Galeria - Isabella & Márcio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --fundo-marsala-escuro: #3A1716; 
+            --fundo-verde-escuro: #12241C;
+            --texto-claro: #FDFBFB;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--fundo-marsala-escuro) 0%, var(--fundo-verde-escuro) 100%);
+            min-height: 100vh;
+            background-attachment: fixed;
+            color: var(--texto-claro);
+            padding-bottom: 40px;
+        }
+
+        .cabecalho {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: rgba(18, 36, 28, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-voltar { color: var(--texto-claro); text-decoration: none; display: flex; align-items: center; gap: 5px; font-weight: 600; font-size: 15px; }
+        .titulo-galeria { font-weight: 700; font-size: 18px; letter-spacing: 0.5px; }
+        
+        .grid-galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; padding: 15px; }
+
+        .foto-item {
+            width: 100%; height: 140px; object-fit: cover; border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            background-color: rgba(255,255,255,0.05); cursor: pointer; transition: transform 0.2s ease;
+        }
+        .foto-item:active { transform: scale(0.98); }
+
+        /* O Lightbox */
+        .lightbox-overlay {
+            display: none; position: fixed; z-index: 1000; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.9); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            justify-content: center; align-items: center; animation: fadeInModal 0.3s ease;
+        }
+
+        .lightbox-img {
+            max-width: 100%; max-height: 90vh; object-fit: contain; border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: scale(0.95); transition: transform 0.2s ease;
+        }
+
+        /* Botões do Lightbox */
+        .btn-fechar {
+            position: absolute; top: 20px; right: 20px; color: white; font-size: 30px; cursor: pointer;
+            background: rgba(255,255,255,0.1); border-radius: 50%; padding: 8px; z-index: 1001;
+        }
+
+        /* --- NOVO: Setas de navegação laterais --- */
+        .btn-nav {
+            position: absolute; top: 50%; transform: translateY(-50%); color: white; font-size: 40px; cursor: pointer;
+            background: rgba(0,0,0,0.3); border-radius: 50%; padding: 5px; z-index: 1001; transition: background 0.2s;
+        }
+        .btn-nav:active { background: rgba(255,255,255,0.3); }
+        .nav-esq { left: 10px; }
+        .nav-dir { right: 10px; }
+
+        @keyframes fadeInModal { from { opacity: 0; } to { opacity: 1; } }
+        .mensagem-vazia { text-align: center; margin-top: 50px; color: rgba(255,255,255,0.6); padding: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="cabecalho">
+        <a href="/" class="btn-voltar"><span class="material-icons-round">arrow_back_ios</span>Voltar</a>
+        <div class="titulo-galeria">Galeria da Festa</div>
+        <div style="width: 24px;"></div>
+    </div>
+
+    <div class="grid-galeria" id="grid"></div>
+
+    <div class="lightbox-overlay" id="lightbox">
+        <span class="material-icons-round btn-fechar" onclick="fecharLightbox()">close</span>
+        
+        <span class="material-icons-round btn-nav nav-esq" onclick="mudarFoto(-1)">chevron_left</span>
+        
+        <img src="" alt="Foto ampliada" class="lightbox-img" id="lightbox-img">
+        
+        <span class="material-icons-round btn-nav nav-dir" onclick="mudarFoto(1)">chevron_right</span>
+    </div>
+
+    <script>
+        const grid = document.getElementById('grid');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        
+        // --- NOVO: Variáveis globais para rastrear onde estamos na lista ---
+        let listaDeFotos = []; 
+        let indiceAtual = 0; 
+
+        // Função para abrir o modal
+        function abrirLightbox(index) {
+            indiceAtual = index; // Salva o número da foto que clicamos
+            lightboxImg.src = listaDeFotos[indiceAtual].urlImagem; // LEMBRETE: checar seu '.url'
+            lightbox.style.display = 'flex';
+            setTimeout(() => { lightboxImg.style.transform = "scale(1)"; }, 10);
+        }
+
+        // --- NOVO: Função que troca a foto ---
+        function mudarFoto(direcao, event) {
+            if (event) event.stopPropagation(); // Impede que o clique vaze pro fundo e feche o modal
+
+            lightboxImg.style.transform = "scale(0.95)"; // Efeito de respiro visual
+
+            indiceAtual += direcao;
+
+            // Loop infinito: se passar da última, volta pra primeira. Se voltar antes da primeira, vai pra última.
+            if (indiceAtual >= listaDeFotos.length) {
+                indiceAtual = 0;
+            } else if (indiceAtual < 0) {
+                indiceAtual = listaDeFotos.length - 1;
+            }
+
+            setTimeout(() => {
+                lightboxImg.src = listaDeFotos[indiceAtual].urlImagem; // LEMBRETE: checar seu '.url'
+                lightboxImg.style.transform = "scale(1)";
+            }, 150); // Um atraso minúsculo só pra foto não piscar seco
+        }
+
+        function fecharLightbox() {
+            lightbox.style.display = 'none';
+            lightboxImg.src = ''; 
+            lightboxImg.style.transform = "scale(0.95)";
+        }
+
+        // Fecha se clicar no fundo preto
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) fecharLightbox();
+        });
+
+        // --- NOVO: Sistema de Swipe (Arrastar com o dedo) ---
+        let touchstartX = 0;
+        let touchendX = 0;
+
+        lightbox.addEventListener('touchstart', e => {
+            touchstartX = e.changedTouches[0].screenX;
+        });
+
+        lightbox.addEventListener('touchend', e => {
+            touchendX = e.changedTouches[0].screenX;
+            // Se a diferença do arrasto for maior que 50 pixels, a gente considera que foi um swipe intencional
+            if (touchstartX - touchendX > 50) mudarFoto(1); // Arrastou pra esquerda = Próxima foto
+            if (touchendX - touchstartX > 50) mudarFoto(-1); // Arrastou pra direita = Foto anterior
+        });
+
+        // --- BÔNUS: Navegar com as setas do teclado no PC ---
+        document.addEventListener('keydown', function(event) {
+            if (lightbox.style.display === 'flex') {
+                if (event.key === "ArrowRight") mudarFoto(1);
+                if (event.key === "ArrowLeft") mudarFoto(-1);
+                if (event.key === "Escape") fecharLightbox();
+            }
+        });
+
+        // Carrega as fotos do Java
+        async function carregarGaleria() {
+            try {
+                const response = await fetch('/api/fotos/lista');
+                if (response.ok) {
+                    let fotos = await response.json();
+                    fotos.reverse(); // Mais novas primeiro
+
+                    if (fotos.length === 0) {
+                        grid.innerHTML = '<div class="mensagem-vazia">Nenhuma foto ainda. Seja o primeiro a postar! 📸</div>';
+                        return;
+                    }
+
+                    listaDeFotos = fotos; // Guarda a lista pra usar no Lightbox
+                    grid.innerHTML = '';
+
+                    fotos.forEach((foto, index) => {
+                        const img = document.createElement('img');
+                        img.src = foto.urlImagem; // LEMBRETE: checar seu '.url'
+                        img.className = 'foto-item';
+                        
+                        // Agora mandamos a POSIÇÃO (index) da foto, e não só o link!
+                        img.onclick = function() { abrirLightbox(index); };
+                        grid.appendChild(img);
+                    });
+                }
+            } catch (error) {
+                console.error('Erro ao buscar galeria:', error);
+                grid.innerHTML = '<div class="mensagem-vazia">Erro ao carregar as fotos. Tente atualizar a página.</div>';
+            }
+        }
+
+        carregarGaleria();
+    </script>
+
+</body>
+</html>

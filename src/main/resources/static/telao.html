@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telão - Casamento Isabella & Márcio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #foto-telao {
+            max-width: 100%;
+            max-height: 100vh;
+            object-fit: contain;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            border-radius: 10px;
+        }
+
+        #mensagem-espera {
+            position: absolute;
+            font-size: 24px;
+            color: #8D4E4B; 
+            text-align: center;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="mensagem-espera">Aguardando os primeiros momentos... 📸</div>
+    <img id="foto-telao" src="" alt="Momentos do Casamento">
+
+    <script>
+        let fotos = [];
+        let indiceAtual = 0;
+        const imgElement = document.getElementById('foto-telao');
+        const msgEspera = document.getElementById('mensagem-espera');
+
+        async function buscarFotos() {
+            try {
+                const response = await fetch('/api/fotos/lista');
+                if (response.ok) {
+                    fotos = await response.json();
+                }
+            } catch (error) {
+                console.error('Erro ao buscar fotos:', error);
+            }
+        }
+
+        function passarFoto() {
+            if (fotos.length === 0) {
+                setTimeout(passarFoto, 3000);
+                return;
+            }
+
+            msgEspera.style.display = 'none';
+
+            imgElement.style.opacity = 0;
+
+            setTimeout(() => {
+
+                const proximaFoto = fotos[indiceAtual].urlImagem; 
+
+                imgElement.onload = function() {
+                    imgElement.style.opacity = 1;
+
+                    indiceAtual++;
+                    if (indiceAtual >= fotos.length) {
+                        indiceAtual = 0;
+                    }
+
+                    setTimeout(passarFoto, 6000); 
+                };
+
+                imgElement.onerror = function() {
+                    console.log("Foto quebrada pulada:", proximaFoto);
+                    indiceAtual++;
+                    if (indiceAtual >= fotos.length) indiceAtual = 0;
+                    passarFoto();
+                };
+
+                imgElement.src = proximaFoto;
+
+            }, 1000);
+        }
+
+        async function iniciarTelao() {
+            await buscarFotos();
+            passarFoto();
+
+            setInterval(buscarFotos, 10000); 
+        }
+
+        iniciarTelao();
+    </script>
+
+</body>
+</html>
