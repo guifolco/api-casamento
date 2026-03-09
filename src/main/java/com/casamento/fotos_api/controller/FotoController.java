@@ -20,6 +20,13 @@ public class FotoController {
     @PostMapping("/upload")
     public ResponseEntity<String> receberFoto(@RequestParam("arquivo") MultipartFile arquivo) {
 
+        boolean segura = fotoService.isFotoSegura(arquivo);
+        
+        if (!segura) {
+            // Se a IA barrou, a gente devolve um Erro 406 (Não Aceito)
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Conteúdo inapropriado detectado.");
+        }
+
         System.out.println("🚨 [ALERTA] ALGUÉM CLICOU NO BOTÃO E A FOTO CHEGOU NO CONTROLLER!");
 
         if (arquivo.isEmpty()) {
@@ -51,6 +58,8 @@ public class FotoController {
         List<Foto> fotos = fotoService.buscarTodasFotos(); 
         return ResponseEntity.ok(fotos);
     }
+
+    
 
     
     
