@@ -72,54 +72,7 @@ public class FotoService {
     }
 
     public boolean isFotoSegura(MultipartFile arquivo) {
-        try {
-            ByteString imgBytes = ByteString.copyFrom(arquivo.getBytes());
-            Image img = Image.newBuilder().setContent(imgBytes).build();
-
-            Feature feat = Feature.newBuilder().setType(Feature.Type.SAFE_SEARCH_DETECTION).build();
-            AnnotateImageRequest request = AnnotateImageRequest.newBuilder().addFeatures(feat).setImage(img).build();
-            List<AnnotateImageRequest> requests = new ArrayList<>();
-            requests.add(request);
-
-            GoogleCredentials credenciais = GoogleCredentials.fromStream(new FileInputStream("E:\\Projeot casamento\\fotos-api\\src\\main\\resources\\firebase-key.json"));
-            
-            ImageAnnotatorSettings configuracao = ImageAnnotatorSettings.newBuilder()
-                    .setCredentialsProvider(FixedCredentialsProvider.create(credenciais))
-                    .build();
-                    
-            try (ImageAnnotatorClient client = ImageAnnotatorClient.create(configuracao)) {
-                BatchAnnotateImagesResponse response = client.batchAnnotateImages(requests);
-                List<AnnotateImageResponse> responses = response.getResponsesList();
-
-                for (AnnotateImageResponse res : responses) {
-                    if (res.hasError()) {
-                        System.out.println("Erro na IA: " + res.getError().getMessage());
-                        return false; 
-                    }
-
-                    SafeSearchAnnotation safeSearch = res.getSafeSearchAnnotation();
-                    
-                    // CORRIGIDO: Adicionado o nível Racy (sensual) e reduzido a tolerância para POSSIBLE (possível), incluindo logs no console para monitoramento.
-                    Likelihood adulto = safeSearch.getAdult();
-                    Likelihood sensual = safeSearch.getRacy();
-                    Likelihood violencia = safeSearch.getViolence();
-
-                    System.out.println("Análise da IA -> Adulto: " + adulto + " | Sensual: " + sensual + " | Violência: " + violencia);
-
-                    if (adulto == Likelihood.LIKELY || adulto == Likelihood.VERY_LIKELY ||
-                        sensual == Likelihood.LIKELY || sensual == Likelihood.VERY_LIKELY ||
-                        violencia == Likelihood.LIKELY || violencia == Likelihood.VERY_LIKELY) {
-                        
-                        System.out.println("🚨 FOTO BLOQUEADA! O segurança não deixou passar.");
-                        return false; 
-                    }
-                }
-            }
-            return true; 
-            
-        } catch (Exception e) {
-            e.printStackTrace();
             return false; 
-        }
+        
     }
 }
