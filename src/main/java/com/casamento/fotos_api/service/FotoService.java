@@ -12,12 +12,6 @@ import com.google.firebase.cloud.StorageClient;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import com.google.cloud.vision.v1.*;
-import com.google.protobuf.ByteString;
-import java.util.ArrayList;
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.api.gax.core.FixedCredentialsProvider;
-import java.io.FileInputStream;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -72,7 +66,7 @@ public class FotoService {
     }
 
     public boolean isFotoSegura(MultipartFile arquivo) {
-            return false; 
+            return true; 
         
     }
 }
