@@ -108,7 +108,7 @@ public class FotoService {
 
                     if (adulto == Likelihood.LIKELY || adulto == Likelihood.VERY_LIKELY ||
                         sensual == Likelihood.LIKELY || sensual == Likelihood.VERY_LIKELY ||
-                        violencia == Likelihood.LIKELY || violencia == Likelihood.VERY_LIKELY ||) {
+                        violencia == Likelihood.LIKELY || violencia == Likelihood.VERY_LIKELY) {
                         
                         System.out.println("🚨 FOTO BLOQUEADA! O segurança não deixou passar.");
                         return false; 

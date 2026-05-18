@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luau do Thomas 🌺</title>
+    <title>Samara & Adriano - 30/05</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
@@ -12,34 +12,31 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            /* As cores base para o overlay escuro */
-            --fundo-luau-escuro: rgba(2, 17, 29, 0.85); 
-            --fundo-luau-claro: rgba(10, 58, 90, 0.75); 
+            /* Fundo: Verde Eucalipto Noturno (Overlay) */
+            --fundo-casamento-escuro: rgba(14, 28, 21, 0.90); 
+            --fundo-casamento-claro: rgba(26, 48, 38, 0.85); 
 
-            /* Elementos: Rosa Hibisco e Laranja Pôr do Sol */
-            --flor-principal: #FF416C;    
-            --flor-clara: #FF4B2B;        
-            --folha-luminosa: #00F260; 
-            --folha-bg: rgba(0, 242, 96, 0.15);
+            /* Elementos: Verde Sálvia e Dourado Metálico */
+            --verde-principal: #557A46;    
+            --verde-claro: #7A9D54;        
+            --icone-luminoso: #F2E3C6; /* Tom areia/dourado suave para os ícones */
+            --icone-bg: rgba(242, 227, 198, 0.15);
             
             --texto-claro: #FDFBFB;
-            --texto-secundario: #D1E8E2;
+            --texto-secundario: #C2D5C9;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
             
-            /* --- NOVO BACKGROUND TROPICAL --- */
-            /* 1. A primeira camada é um degradê escuro transparente para dar leitura */
-            /* 2. A segunda camada (url) é a imagem das flores. Troque a URL se quiser outra imagem! */
+            /* Background Botânico Elegante */
             background-image: 
-                linear-gradient(135deg, var(--fundo-luau-escuro) 0%, var(--fundo-luau-claro) 100%),
-                url('https://img.freepik.com/fotos-gratis/fundo-de-folhas-tropicais-escuras_53876-88686.jpg?w=1380&t=st=1709588689~exp=1709589289~hmac=4478696247402291368782740505668031766170845245889248544304758791');
+                linear-gradient(135deg, var(--fundo-casamento-escuro) 0%, var(--fundo-casamento-claro) 100%),
+                url('https://images.unsplash.com/photo-1542314831-c6a4d14093f0?q=80&w=1500&auto=format&fit=crop'); /* Folhas escuras elegantes */
             
-            background-size: cover; /* Faz a imagem cobrir a tela toda */
-            background-position: center; /* Centraliza a imagem */
-            background-attachment: fixed; /* O fundo fica parado quando a tela rola */
-            /* -------------------------------- */
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed; 
 
             min-height: 100vh;
             display: flex;
@@ -50,11 +47,10 @@
         }
 
         .container {
-            /* Aumentei um pouco o blur do vidro para destacar mais do fundo floral */
-            background: rgba(255, 255, 255, 0.03); 
+            background: rgba(255, 255, 255, 0.04); 
             backdrop-filter: blur(25px); 
             -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             padding: 50px 30px;
             border-radius: 30px;
             text-align: center;
@@ -70,7 +66,7 @@
             letter-spacing: 0.5px;
             color: var(--texto-claro);
             line-height: 1.2;
-            text-shadow: 0 2px 15px rgba(0,0,0,0.8); /* Sombra mais forte no texto */
+            text-shadow: 0 2px 15px rgba(0,0,0,0.8); 
         }
 
         p.descricao {
@@ -81,9 +77,9 @@
             text-shadow: 0 1px 5px rgba(0,0,0,0.5);
         }
 
-        /* Botão Sunset */
-        .btn-tropical {
-            background: linear-gradient(45deg, var(--flor-principal), var(--flor-clara));
+        /* Botão Sálvia */
+        .btn-casamento {
+            background: linear-gradient(45deg, var(--verde-principal), var(--verde-claro));
             color: white; 
             padding: 20px 24px;
             border-radius: 50px;
@@ -95,37 +91,37 @@
             justify-content: center;
             gap: 12px;
             width: 100%;
-            box-shadow: 0 8px 25px rgba(255, 65, 108, 0.4);
+            box-shadow: 0 8px 25px rgba(85, 122, 70, 0.4);
             transition: all 0.2s ease;
-            animation: pulse-flor 2.5s infinite;
+            animation: pulse-verde 2.5s infinite;
             border: 1px solid rgba(255,255,255,0.2);
         }
 
-        .btn-tropical:active {
+        .btn-casamento:active {
             transform: scale(0.96);
-            box-shadow: 0 4px 10px rgba(255, 65, 108, 0.3);
+            box-shadow: 0 4px 10px rgba(85, 122, 70, 0.3);
         }
 
         .contador-fotos {
             margin-top: 35px;
             font-size: 14px;
             font-weight: 600;
-            color: var(--folha-luminosa); 
+            color: var(--icone-luminoso); 
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            background: rgba(0, 20, 10, 0.6); /* Fundo mais escuro pro contador */
+            background: rgba(0, 0, 0, 0.3); 
             padding: 10px 20px;
             border-radius: 25px;
-            border: 1px solid rgba(0, 242, 96, 0.3);
+            border: 1px solid rgba(242, 227, 198, 0.2);
             backdrop-filter: blur(5px);
         }
 
         .contador-fotos .material-icons-round { font-size: 18px; }
 
         .btn-secundario {
-            background: rgba(0,0,0,0.2); /* Fundo sutil */
+            background: rgba(0,0,0,0.2);
             color: var(--texto-claro);
             padding: 15px 24px;
             border-radius: 50px;
@@ -137,48 +133,48 @@
             justify-content: center;
             gap: 8px;
             width: 100%;
-            border: 2px solid var(--flor-principal);
+            border: 2px solid var(--verde-claro);
             margin-top: 20px;
             text-decoration: none;
             transition: all 0.2s ease;
         }
 
-        .btn-secundario:active { background: rgba(255, 65, 108, 0.15); transform: scale(0.97); }
+        .btn-secundario:active { background: rgba(122, 157, 84, 0.15); transform: scale(0.97); }
         .material-icons-round { font-size: 24px; }
 
-        @keyframes pulse-flor {
-            0% { box-shadow: 0 0 0 0 rgba(255, 65, 108, 0.6); }
-            70% { box-shadow: 0 0 0 20px rgba(255, 65, 108, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 65, 108, 0); }
+        @keyframes pulse-verde {
+            0% { box-shadow: 0 0 0 0 rgba(85, 122, 70, 0.6); }
+            70% { box-shadow: 0 0 0 20px rgba(85, 122, 70, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(85, 122, 70, 0); }
         }
 
         #status-mensagem { margin-top: 25px; font-size: 14px; font-weight: 600; min-height: 25px; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
-        .sucesso { color: var(--folha-luminosa); }
-        .erro { color: #FF4B2B; } 
+        .sucesso { color: var(--icone-luminoso); }
+        .erro { color: #FF6B6B; } 
         .carregando { color: var(--texto-secundario); }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Luau do Thomas 🌴</h1>
-        <p class="descricao">Aloha! 🌺 Tire uma foto e compartilhe os melhores momentos dessa noite com a gente.</p>
+        <h1>Samara & Adriano</h1>
+        <p class="descricao">Compartilhe seus melhores momentos! Sua foto vai direto para o nosso álbum digital.</p>
 
         <input type="file" id="fotoInput" accept="image/*" hidden style="display: none !important; visibility: hidden;">
         
-        <label for="fotoInput" class="btn-tropical" id="labelBotao">
+        <label for="fotoInput" class="btn-casamento" id="labelBotao">
             <span class="material-icons-round">photo_camera</span>
             Tirar Foto
         </label>
 
         <div class="contador-fotos">
-            <span class="material-icons-round">local_florist</span>
-            <span id="total-fotos">--</span> fotos no mural
+            <span class="material-icons-round">favorite_border</span>
+            <span id="total-fotos">--</span> momentos capturados
         </div>
 
         <a href="galeria.html" class="btn-secundario">
-            <span class="material-icons-round">grid_view</span>
-            Mural do Luau
+            <span class="material-icons-round">auto_awesome_mosaic</span>
+            Álbum da Festa
         </a>
 
         <p id="status-mensagem"></p>
@@ -243,7 +239,7 @@
 
             labelBotao.innerHTML = '<span class="material-icons-round">hourglass_top</span> Preparando...';
             labelBotao.style.opacity = "0.8"; labelBotao.style.animation = "none";
-            statusMensagem.textContent = "Colando no mural...";
+            statusMensagem.textContent = "Otimizando imagem...";
             statusMensagem.className = "carregando";
 
             try {
@@ -255,7 +251,7 @@
 
                 if (response.ok) {
                     await response.text();
-                    statusMensagem.innerHTML = '🥥 Sucesso! Foto enviada.';
+                    statusMensagem.innerHTML = '<span class="material-icons-round" style="vertical-align: middle; font-size: 18px;">check_circle</span> Sucesso! Foto enviada.';
                     statusMensagem.className = "sucesso";
                     atualizarContador();
                 } else if (response.status === 406) {
@@ -266,12 +262,12 @@
                     throw new Error('Erro no servidor');
                 }
             } catch (error) {
-                statusMensagem.textContent = "❌ Ops! A onda levou a foto. Tente de novo.";
+                statusMensagem.textContent = "❌ Ops! Algo deu errado. Tente de novo.";
                 statusMensagem.className = "erro";
             } finally {
                 labelBotao.innerHTML = textoOriginalBotao;
                 labelBotao.style.opacity = "1";
-                labelBotao.style.animation = "pulse-flor 2.5s infinite"; 
+                labelBotao.style.animation = "pulse-verde 2.5s infinite"; 
                 fotoInput.value = '';
             }
         });

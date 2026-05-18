@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Galeria - Luau do Thomas</title>
+    <title>Galeria - Samara & Adriano</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
@@ -12,25 +12,21 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            /* As cores base para o overlay escuro */
-            --fundo-luau-escuro: rgba(2, 17, 29, 0.85); 
-            --fundo-luau-claro: rgba(10, 58, 90, 0.75); 
+            --fundo-casamento-escuro: rgba(14, 28, 21, 0.90); 
+            --fundo-casamento-claro: rgba(26, 48, 38, 0.85); 
             --texto-claro: #FDFBFB;
-            --flor-principal: #FF416C; 
         }
 
         body {
             font-family: 'Poppins', sans-serif;
 
-            /* --- NOVO BACKGROUND TROPICAL (Igual ao index.html) --- */
             background-image: 
-                linear-gradient(135deg, var(--fundo-luau-escuro) 0%, var(--fundo-luau-claro) 100%),
-                url('https://img.freepik.com/fotos-gratis/fundo-de-folhas-tropicais-escuras_53876-88686.jpg?w=1380&t=st=1709588689~exp=1709589289~hmac=4478696247402291368782740505668031766170845245889248544304758791');
+                linear-gradient(135deg, var(--fundo-casamento-escuro) 0%, var(--fundo-casamento-claro) 100%),
+                url('https://images.unsplash.com/photo-1542314831-c6a4d14093f0?q=80&w=1500&auto=format&fit=crop');
             
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            /* -------------------------------- */
 
             min-height: 100vh;
             color: var(--texto-claro);
@@ -42,8 +38,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px;
-            /* Fundo do cabeçalho mais escuro e borrado para ler o texto sobre as flores */
-            background: rgba(2, 11, 20, 0.8); 
+            background: rgba(10, 20, 15, 0.8); 
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             position: sticky;
@@ -63,7 +58,7 @@
             padding: 25px; 
         }
 
-        /* Polaroids com sombra reforçada para destacar do fundo texturizado */
+        /* Polaroids */
         .foto-item {
             width: 100%; height: 170px; object-fit: cover; 
             background-color: #f8f8f8; 
@@ -85,7 +80,7 @@
 
         .lightbox-overlay {
             display: none; position: fixed; z-index: 1000; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.95); /* Fundo do lightbox mais escuro */
+            background-color: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
             justify-content: center; align-items: center; animation: fadeInModal 0.3s ease;
         }
@@ -116,7 +111,7 @@
 
     <div class="cabecalho">
         <a href="/" class="btn-voltar"><span class="material-icons-round">arrow_back_ios</span>Voltar</a>
-        <div class="titulo-galeria">Mural da Festa</div>
+        <div class="titulo-galeria">Álbum da Festa</div>
         <div style="width: 24px;"></div>
     </div>
 
@@ -137,7 +132,7 @@
         let listaDeFotos = []; let indiceAtual = 0; 
 
         function abrirLightbox(index) {
-            indiceAtual = index; lightboxImg.src = listaDeFotos[indiceAtual].url; 
+            indiceAtual = index; lightboxImg.src = listaDeFotos[indiceAtual].urlImagem;; 
             lightbox.style.display = 'flex';
             setTimeout(() => { lightboxImg.style.transform = "scale(1)"; }, 10);
         }
@@ -149,7 +144,7 @@
             if (indiceAtual >= listaDeFotos.length) indiceAtual = 0;
             else if (indiceAtual < 0) indiceAtual = listaDeFotos.length - 1;
             setTimeout(() => {
-                lightboxImg.src = listaDeFotos[indiceAtual].url; 
+                lightboxImg.src = listaDeFotos[indiceAtual].urlImagem; 
                 lightboxImg.style.transform = "scale(1)";
             }, 150); 
         }
@@ -185,7 +180,7 @@
                     fotos.reverse(); 
 
                     if (fotos.length === 0) {
-                        grid.innerHTML = '<div class="mensagem-vazia">Nenhuma foto ainda. Seja o primeiro a quebrar o gelo! 🥥📸</div>';
+                        grid.innerHTML = '<div class="mensagem-vazia">Nenhuma foto ainda. Seja o primeiro a inaugurar o álbum! 📸</div>';
                         return;
                     }
 
@@ -193,13 +188,13 @@
 
                     fotos.forEach((foto, index) => {
                         const img = document.createElement('img');
-                        img.src = foto.url; img.className = 'foto-item';
+                        img.src = foto.urlImagem; img.className = 'foto-item';
                         img.onclick = function() { abrirLightbox(index); };
                         grid.appendChild(img);
                     });
                 }
             } catch (error) {
-                grid.innerHTML = '<div class="mensagem-vazia">Erro ao carregar o mural. Tente atualizar a página.</div>';
+                grid.innerHTML = '<div class="mensagem-vazia">Erro ao carregar o álbum. Tente atualizar a página.</div>';
             }
         }
 
