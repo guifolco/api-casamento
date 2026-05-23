@@ -152,6 +152,29 @@
         .sucesso { color: var(--icone-luminoso); }
         .erro { color: #FF6B6B; } 
         .carregando { color: var(--texto-secundario); }
+
+        /* Botão invisível para o DJ */
+        .link-telao {
+            margin-top: 35px;
+            font-size: 12px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.3); /* Fica bem apagadinho */
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            width: 100%;
+            transition: color 0.2s;
+        }
+
+        .link-telao:active { 
+            color: rgba(255, 255, 255, 0.8); 
+        }
+
+        .link-telao .material-icons-round { 
+            font-size: 14px; 
+        }
     </style>
 </head>
 <body>
@@ -178,6 +201,11 @@
         </a>
 
         <p id="status-mensagem"></p>
+
+        <a href="telao.html" class="link-telao" target="_blank">
+            <span class="material-icons-round">cast</span>
+            Acesso do Telão (Staff)
+        </a>
     </div>
 
     <script>
